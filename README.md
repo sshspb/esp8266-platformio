@@ -207,7 +207,7 @@ esptool.py --port COM4 write_flash 0x1000 my_app-0x01000.bin
 Welcome to the [esptool wiki](https://github.com/espressif/esptool/wiki) !
 
 # dweet.io 
-Пригодится, для отладки, [dweet.io](http://dweet.io/) - сервис хранения показаний (dweets) датчиков, без платы до 5 dweets хрнятся 24 часа.
+Пригодится, для отладки, [dweet.io](http://dweet.io/) - сервис хранения показаний (dweets) датчиков, без оплаты до 5 dweets хранятся 24 часа.
 ### write dweet
 - request in web brouser
 ```
