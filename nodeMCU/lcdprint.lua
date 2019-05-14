@@ -1,19 +1,20 @@
 -- file lcdprint.lua
--- Ref: http://giantmetalrobot.blogspot.in/2015/07/esp8266-i2c-lcd.html
---     https://github.com/nossSpb/nodemcu-ds18b20-tutorial/blob/master/wemos-d1-lcd-part-2/i2clcd.lua
+-- Ref: https://www.esp8266.com/viewtopic.php?f=6&t=15865
+--      http://giantmetalrobot.blogspot.in/2015/07/esp8266-i2c-lcd.html
+--      https://github.com/nossSpb/nodemcu-ds18b20-tutorial/blob/master/wemos-d1-lcd-part-2/i2clcd.lua
 --[[
 Example usage:
---print on the first line 
+-- print on the first line 
 dofile("lcdprint.lua").lcdprint("This is line 1",1,0)
- --print on the second line 
+-- print on the second line 
 dofile("lcdprint.lua").lcdprint("This is line 2",2,2)
---clear screen 
+-- clear screen 
 dofile("lcdprint.lua").cls() 
---home
+-- home
 dofile("lcdprint.lua").home()
---show cursor 
+-- show cursor 
 dofile("lcdprint.lua").cursor(1)
---hide cursor
+-- hide cursor
 dofile("lcdprint.lua").cursor(0)   
 --]]
 

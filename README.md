@@ -77,7 +77,7 @@ AT+CIPSR          Get local IP address (Station mode)
 
 ![I2C bus electronics to the pin-limited ESP-01](images/ESP-01_I2C.jpg)
 
-Пример кода находится в файле nodeMCU/lcdprint.lua .
+Пример кода находится в файле ``nodeMCU/lcdprint.lua`` .
 
 ## Терминал
 
