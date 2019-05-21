@@ -18,15 +18,30 @@ NodeMCU модульная, что позволяет собрать проши�
 
 ![NodeMCU Development board appearance](images/NodeMCUv1.0-kit.jpg)
 
-
 ![NodeMCU Development board pinout](images/NodeMCUv1.0-pinout.jpg)
     
 ![NodeMCU Development board GPIOs](images/NodeMCUv1.0-GPIOs.jpg)
 
+Контакты ввода/вывода в устройстве NoddMCU отображаются на внутренние контакты GPIO (General Purpose Input/Output) ESP8266 следующим образом:
 ```
-0 GPIO16
-1 GPIO5    3 GPIO0    5 GPIO14    7 GPIO13     9 GPIO3    11 GPIO9     
-2 GPIO4    4 GPIO2    6 GPIO12    8 GPIO15    10 GPIO1    12 GPIO10 
+D0 GPIO16
+D1 GPIO5   D3 GPIO0   D5 GPIO14   D7 GPIO13    D9 GPIO3   D11 GPIO9     
+D2 GPIO4   D4 GPIO2   D6 GPIO12   D8 GPIO15   D10 GPIO1   D12 GPIO10 
+```
+
+Питание модуля NodeMcu, варианты:
+```
+5-18 В через контакт Vin;
+5 В через USB-разъем;
+3,3 В через вывод 3V3.
+```
+
+Электрические характеристики модуля ESP-12E
+```
+3.3 V рабочее напряжение
+15 mA максимально допустимый ток контакта GPIO
+12 - 200 mA ток потребления в рабочем режиме
+Less than 200 uA ток потребления в режиме ожидания (standby)
 ```
 
 ## esptool.py
