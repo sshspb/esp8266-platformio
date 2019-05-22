@@ -243,6 +243,8 @@ Content-Length: 25
 
 # DS18B20 – датчик температуры с интерфейсом 1-Wire 
 
+Ссылка на техническую спецификацию https://datasheets.maximintegrated.com/en/ds/DS18B20.pdf 
+
 По этой ссылке [описание на русском языке.](http://mypractic.ru/ds18b20-datchik-temperatury-s-interfejsom-1-wire-opisanie-na-russkom-yazyke.html)
 
 ## Инициализация – импульсы сброса и присутствия
