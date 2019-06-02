@@ -21,6 +21,9 @@ mytimer:register(1000, tmr.ALARM_AUTO,
         sck:send("Recived: "..data)  -- Send reply
       end
       if sv then
+        -- в консоле unix-машины командой 
+        -- $ telnet 192.168.0.100 3333
+        -- соединяемся с данным сервером
         sv:listen(3333, function(conn)
           conn:on("receive", receiver)
           conn:send("Hello!")
@@ -37,10 +40,10 @@ collectgarbage()
 
 --[[
 wifi.sta.status() returns number： 0~5
-0: STATION_IDLE,
-1: STATION_CONNECTING,
-2: STATION_WRONG_PASSWORD,
-3: STATION_NO_AP_FOUND,
-4: STATION_CONNECT_FAIL,
-5: STATION_GOT_IP.
+0 == wifi.STA_IDLE:       STATION_IDLE,
+1 == wifi.STA_CONNECTING: STATION_CONNECTING,
+2 == wifi.STA_WRONGPWD:   STATION_WRONG_PASSWORD,
+3 == wifi.STA_APNOTFOUND: STATION_NO_AP_FOUND,
+4 == wifi.STA_FAIL:       STATION_CONNECT_FAIL,
+5 == wifi.STA_GOTIP:      STATION_GOT_IP.
 --]]

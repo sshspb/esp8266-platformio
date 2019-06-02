@@ -1,12 +1,12 @@
 ## Lua
 
-Краткий обзор интерпретируемого языка Lua здесь: [http://tylerneylon.com/a/learn-lua/](http://tylerneylon.com/a/learn-lua/),
-а полное руководство тут: [http://lua.org.ru/contents_ru.html](http://lua.org.ru/contents_ru.html).
-)
+Руководство по языку [Lua](https://www.lua.org/) доступно на [английском](https://www.lua.org/manual/5.3/) и [русском](http://lua.org.ru/contents_ru.html) языках.
+
+Краткий обзор Lua от Tyler Neylon [здесь](http://tylerneylon.com/a/learn-lua/).
 
 ## NodeMCU
 
-Открытый бесплатный проект [NodeMCU](https://github.com/nodemcu/nodemcu-firmware) — "прошивка" для микроконтроллера ESP8266 на основе скриптового языка Lua. 
+Открытый бесплатный проект [NodeMCU](https://github.com/nodemcu/nodemcu-firmware) это прошивка на основе Lua для ESP8266 WiFi SOC от Espressif. NodeMCU реализован на C в среде в [Espressif NON-OS SDK](https://github.com/espressif/ESP8266_NONOS_SDK) и использует встроенную файловую систему SPIFFS на основе флэш-памяти.
 
 NodeMCU модульная, что позволяет собрать прошивку только из требуемых модулей.
 Существует сайт, [https://nodemcu-build.com](https://nodemcu-build.com), на котором можно собрать NodeMCU с необходимыми модулями. 
