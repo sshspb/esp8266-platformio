@@ -264,6 +264,7 @@ Content-Length: 25
 
 Измеренное значение температуры хранится в дополнительном коде в 16-разрядном температурном регистре, 
 ![Temperature register format](images/DS18B20-temperature-register.jpg)
+
 в младших двух байтах девятибайтовой оперативной памяти (SRAM) scratchpad . 
 ![64-Bit Lasered ROM Code](images/DS18B20-SRAM-SCRATHPAD.jpg)
 
