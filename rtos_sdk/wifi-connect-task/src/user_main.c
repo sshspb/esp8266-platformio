@@ -55,7 +55,7 @@ void user_init(void)
   wifi_set_opmode(STATION_MODE);
 
   struct station_config * config = (struct station_config *)zalloc(sizeof(struct station_config));
-  sprintf(config->ssid,"NorthSide");
+  sprintf(config->ssid,"ssid");
   sprintf(config->password, "password");
   wifi_station_set_config(config);
   free(config);
@@ -75,7 +75,7 @@ SDK version:1.5.0-dev(caff253)
 mode : sta(84:f3:eb:7f:db:1e)
 Hello,  welcome to      task2!
 Hello,  welcome to      task3!
-connected with NorthSide, channel 6
+connected with ssid, channel 6
 dhcp client start...
 ip:192.168.0.101,mask:255.255.255.0,gw:192.168.0.1
 */

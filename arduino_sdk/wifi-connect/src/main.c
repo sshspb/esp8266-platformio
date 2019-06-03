@@ -10,7 +10,7 @@ void setup() {
   Serial.begin(115200);
   Serial.println();
 
-  WiFi.begin("NorthSide", "password");
+  WiFi.begin("ssid", "password");
 
   Serial.print("Connecting");
   while (WiFi.status() != WL_CONNECTED)

@@ -43,7 +43,7 @@ void user_init(void)
   os_printf("SDK version:%s\n", system_get_sdk_version());
   wifi_set_opmode(STATION_MODE);
   struct station_config * config = (struct station_config *) os_zalloc(sizeof(struct station_config));
-  sprintf(config->ssid,"NorthSide");
+  sprintf(config->ssid,"ssid");
   sprintf(config->password, "password");
   wifi_station_set_config(config);
   os_free(config);

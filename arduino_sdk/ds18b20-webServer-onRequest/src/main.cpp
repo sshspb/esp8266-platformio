@@ -18,8 +18,8 @@ Ticker convertor;
 Ticker reader;
 OneWire  ds(2);
 
-const char* ssid     = "NorthSide";
-const char* password = "fxbdytfxbdyt1";
+const char* ssid     = "ssid";
+const char* password = "password";
 uint8_t addr[] = {0x28, 0xA1, 0xBD, 0x53, 0x03, 0x00, 0x00, 0x62};
 uint8_t data[2];
 int raw = 0;

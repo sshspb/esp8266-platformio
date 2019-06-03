@@ -6,7 +6,7 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 
-const char* ssid     = "NorthSide";
+const char* ssid     = "ssid";
 const char* password = "password";
 const char* host = "192.168.0.6"; // nc -l 3333
 const uint16_t port = 3333;
