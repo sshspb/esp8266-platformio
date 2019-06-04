@@ -35,8 +35,8 @@ end
 
 ds.createTransmitter = function()  
   local cfg={}
-  cfg.ssid="NorthSide"
-  cfg.pwd="fxbdytfxbdyt1"
+  cfg.ssid="ssid"
+  cfg.pwd="password"
   cfg.save=false
   wifi.sta.config(cfg) -- соединяемся с точкой доступа
   local wifi_tmr = tmr.create()
