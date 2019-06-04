@@ -5,7 +5,9 @@ print("Wait... 15s");
 mytimer:register(15000, tmr.ALARM_SINGLE, function (t) 
   -- таймер выполниться один раз через 15 сек 
   print("Start");
-  dofile("example.lua") --Запуск нашего скрипта 
+  -- Запуск нашего скрипта
+  -- dofile("example.lua")  
+  (require("example.lua")).start()
   t:unregister()
 end)
 mytimer:start()  -- стартуем таймер
