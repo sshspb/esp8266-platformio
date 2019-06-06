@@ -2,9 +2,9 @@
 
 Руководство по языку [Lua](https://www.lua.org/) доступно на английском https://www.lua.org/manual/5.3/ и русском http://lua.org.ru/contents_ru.html языках.
 
-Краткий обзор Lua от Tyler Neylon [здесь](http://tylerneylon.com/a/learn-lua/).
+Краткий обзор Lua от Tyler Neylon: http://tylerneylon.com/a/learn-lua/
 
-Подробная wiki-справка http://lua-users.org/wiki/TutorialDirectory
+Подробная wiki-справка: http://lua-users.org/wiki/TutorialDirectory
 
 Краткая справка, в формате PDF: http://lua-users.org/files/wiki_insecure/users/thomasl/luarefv51single.pdf
 
