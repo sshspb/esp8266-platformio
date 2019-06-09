@@ -51,8 +51,8 @@ end
 --- test ---
 
 router = {
-  ssid = "NorthSide",
-  pwd = "fxbdytfxbdyt1"
+  ssid = ssid,
+  pwd = password
 }
 
 wifi.setmode(wifi.STATION, false)
