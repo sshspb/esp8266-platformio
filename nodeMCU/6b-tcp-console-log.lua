@@ -6,8 +6,7 @@ C = {
   socket = nil,
   semafor = false,
   buffer = '',
-  text = '',
-  
+  text = ''
 }
 
 C.setSemafor = function() 
