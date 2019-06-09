@@ -33,17 +33,12 @@ C.init = function()
       client = net.createConnection(net.TCP, 0)
       client:on("connection", function(sck, c) 
         print('event connection')
-        if C.socket ~= nil then
-          C.socket:close()
-        end
+        if C.socket ~= nil then C.socket:close() end
         C.socket = sck
-        C.semafor = true 
+        C.setSemafor()
         C.socket:on("sent", function(s) C.setSemafor() end )
-
-        C.put('How do you do?')
-        C.put('Thank you, I am well')
       end)
-      client:connect(3333, "192.168.0.6")
+      client:connect(C.port, C.ip)
 end
 
 --return C
@@ -51,8 +46,8 @@ end
 --- test ---
 
 router = {
-  ssid = ssid,
-  pwd = password
+  ssid = 'router',
+  pwd = 'password'
 }
 
 wifi.setmode(wifi.STATION, false)
@@ -67,4 +62,4 @@ wifi.eventmon.register(wifi.eventmon.STA_GOT_IP,
 )
 wifi.sta.config({ssid = router.ssid, pwd  = router.pwd, save = false})
 
-C.put('Hello, world')
+C.put('Hello, world!')
