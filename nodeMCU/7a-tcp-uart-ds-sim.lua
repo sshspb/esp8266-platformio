@@ -1,91 +1,123 @@
--- tcp console log
--- Вывод отладочной информации по WiFi на tcp-сервер-консоль
--- при отсутствии возможности использовать UART
---[[
- Использование:
- первоначально инициализировать модуль C.init() и 
- далее выводить текст функцией C.put(data)
- Примечание:
- на узле что в роли консоли необходим tcp-сервер, 
- например такой, на Node.js:
+-- ESP8266 TCP DS18B20 SIM800L
 
-const net = require('net');
-const PORT = 3333;
-var textChunk = '';
-const server = net.createServer((socket) => {
-  // 'connection' listener
-  console.log('client connected' + socket.remoteAddress +':'+ socket.remotePort);
-  socket.on('data', (data) => {
-    console.log(data);
-    textChunk = data.toString('utf8');
-    console.log(textChunk);
-  });
-  socket.on('end', () => {
-    console.log('client disconnected');
-  });
-});
-server.on('error', (err) => {
-  throw err;
-});
-server.listen(PORT, () => {
-  console.log('server bound');
-});
-]]
+local M = {}
 
-local C = {
-  port = 3333, -- ip и port узла что будет в роли консоли
-  ip = '192.168.0.6',
-  socket = nil,
-  semafor = false,
-  buffer = '',
-  text = '',
-  connected = false
+console = require("tcp-console-log")
+comrade = require("comrade")
+router = require("router")
+
+local simIsFree = true
+local ds = { 
+  addr = string.char(0x28, 0xA1, 0xBD, 0x53, 0x03, 0x00, 0x00, 0x62),
+  temp = 1360, -- 1360 0x0550 85 C   
+  tick = 0,
+  pin = 4, -- gpio0 = 3, gpio2 = 4
+  interval = 30000, -- measure interval in milliseconds
+  timer = tmr.create()
 }
 
-C.setSemafor = function() 
-  --print('in setSemafor')
-  -- разрешить печать
-  C.semafor = true 
-  -- если в буфере текст, на печать
-  if string.len(C.buffer) > 0 then
-    C.put('')
-  end
-end
-
-C.put = function(data)
-  --print('in put: '..data)
-  -- текст data накапливаем в buffer
-  if string.len(data) > 0 and string.len(C.buffer) < 1000 then
-    C.buffer = C.buffer..data..'\n'
-  end
-  if C.connected == true and C.socket ~= nil then
-    if C.semafor and string.len(C.buffer) > 0 then 
-      -- текст из buffer в промежуточную переменную text 
-      -- и установить семафором semafor что socket:send занят
-      C.text, C.buffer, C.semafor = C.buffer, '', false
-      -- на печать содержимое text
-      C.socket:send(C.text)
+local function readTemperature()
+  ow.reset(ds.pin)
+  ow.select(ds.pin, ds.addr)
+  ow.write(ds.pin, 0x44, 0)
+  tmr.create():alarm(760, tmr.ALARM_SINGLE, function ()
+    ow.reset(ds.pin)
+    ow.select(ds.pin, ds.addr)
+    ow.write(ds.pin, 0xBE, 0)
+    local data = ow.read_bytes(ds.pin, 9)
+    local crc = ow.crc8(string.sub(data,1,8))
+    if crc == data:byte(9) then
+      ds.temp = data:byte(1) + data:byte(2) * 256  -- t Centigrade * 16
+      ds.tick = tmr.time() -- system uptime in seconds, 31 bits
+      local nh = tostring (node.heap())
+      console.put('ds.temp: '..ds.temp..' ds.tick: '..ds.tick..' node.heap: '..nh)
     else
-      --print('C.semafor == nil or string.len(C.buffer) == 0')
+      ds.temp = 1360  -- 0x0550 85 C   
     end
-   else
-     --print('C.connected ~= true or C.socket == nil')
-  end
-end
-  
-C.init = function()
-  -- создание tcp-клиента
-  client = net.createConnection(net.TCP, 0)
-  client:on("connection", function(sck, c) 
-    --if C.socket ~= nil then C.socket:close() end
-    C.socket = sck
-    C.setSemafor()
-    C.put('client on event connection')
-    C.socket:on("sent", function(s) C.setSemafor() end )
-    C.connected = true
   end)
-  -- соединение с tcp-сервером-консолью
-  client:connect(C.port, C.ip)
 end
 
-return C
+local function sendReport(telNumber)
+  ds.timer:unregister()
+  tmr.delay(5000000) -- microseconds to busyloop for
+  uart.write(0, 'ATH\r')
+  tmr.delay(5000000) -- microseconds to busyloop for
+  uart.write(0, 'AT+CMGS="'..telNumber..'"\r')
+  tmr.delay(1000000) -- microseconds to busyloop for
+  local tA = ds.temp * 625
+  local tI = tA / 10000
+  local tF = (tA%10000)/1000 + ((tA%1000)/100 >= 5 and 1 or 0)
+  local report = string.format("test t = %d.%d C\r\n", tI, tF)
+  console.put(report)
+  uart.write(0, report)
+  uart.write(0, '\26') -- CTRL_Z
+  uart.write(0, '\r')
+  tmr.delay(5000000) -- microseconds to busyloop for
+  uart.write(0, 'AT+CMGD=1,4') -- удалить все СМС
+  ds.timer:register(ds.interval, tmr.ALARM_AUTO, readTemperature)
+  ds.timer:start()
+end
+
+function M.start()
+  -- register callback function, when '\n' is received.
+  uart.on("data", "\n",
+    function(data)
+      if simIsFree then console.put('simIsFree == true')
+      else console.put('simIsFree == false') end
+      console.put('from sim: '..data)
+      if simIsFree and string.sub(data,1,6) == "+CLIP:" then
+        simIsFree = false
+        tmr.create():alarm(60000, tmr.ALARM_SINGLE, function () simIsFree = true end)
+        -- при входящем вызове модем SIM800L выдает раз в секунду строки
+        -- RING
+        -- +CLIP: "+7XXXXXXXXXX",145,"",0,"",0
+        local callerNumber
+        local comradeNumber
+        _, _, callerNumber = string.find(data, '%+CLIP: "(%+%d+)"')
+        for _, comradeNumber in ipairs(comrade) do
+          if comradeNumber == callerNumber then 
+            console.put('telNumber: '..comradeNumber)
+            sendReport(comradeNumber)
+            break
+          end
+        end
+      end
+    end, 0
+  )
+  uart.setup(0, 115200, 8, uart.PARITY_NONE, uart.STOPBITS_1, 0)
+  --uart.setup(0, 9600, 8, uart.PARITY_NONE, uart.STOPBITS_1, 0)
+
+  -- configure ESP as a station
+  wifi.setmode(wifi.STATION, false)
+  -- соединяемся с точкой доступа
+  wifi.eventmon.register(wifi.eventmon.STA_GOT_IP, 
+    function(T)
+      console.put("\nSTA - GOT IP"..
+        "\nStation IP: "..T.IP..
+        "\nSubnet mask: "..T.netmask..
+        "\nGateway IP: "..T.gateway)
+      console.init()
+      local i = 0
+      sim_tmr = tmr.create()
+      sim_tmr:register(2000, tmr.ALARM_AUTO,
+        function(t) 
+          i = i + 1
+          if i > 3 then 
+            t:unregister()
+            uart.write(0, 'AT+CLIP=1\r')
+          else
+            uart.write(0, 'AT\r')
+          end
+        end
+      )
+      sim_tmr:start()
+    end
+  )
+  wifi.sta.config({ssid = router.ssid, pwd  = router.pwd, save = false})
+  
+  ow.setup(ds.pin)
+  ds.timer:register(ds.interval, tmr.ALARM_AUTO, readTemperature)
+  ds.timer:start()
+end
+
+return M
