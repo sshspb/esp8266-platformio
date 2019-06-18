@@ -63,8 +63,53 @@ Read SPI flash id
 ```
 esptool.py flash_id
 ```
-
 Welcome to the [esptool wiki](https://github.com/espressif/esptool/wiki) !
+
+#### Порядок действий при прошивке NodeMCU:
+
+Установить esp-01 в режим прошивки - замкнуть ключ Flash и подать питание (или перезагрузить кнопкой Reset).
+```
+D:\doc\esp8266\nodemcu\firmware>esptool.py --port COM4 flash_id
+esptool.py v2.6
+Serial port COM4
+Connecting....
+Detecting chip type... ESP8266
+Chip is ESP8266EX
+Features: WiFi
+MAC: 84:f3:eb:7f:d2:56
+Uploading stub...
+Running stub...
+Stub running...
+Manufacturer: 85
+Device: 6014
+Detected flash size: 1MB
+Hard resetting via RTS pin...
+```
+
+Перезагрузить esp-01 в режим прошивки - при замкнутом ключе Flash нажать кнопку Reset.
+```
+D:\doc\esp8266\nodemcu\firmware>esptool.py --port COM4 write_flash 0x00000 nodemcu-master-8-modules-2019-05-31-00-20-03-integer.bin
+esptool.py v2.6
+Serial port COM4
+Connecting........_____....._____....._____.....____
+Detecting chip type... ESP8266
+Chip is ESP8266EX
+Features: WiFi
+MAC: 84:f3:eb:7f:d2:56
+Uploading stub...
+Running stub...
+Stub running...
+Configuring flash size...
+Auto-detected Flash size: 1MB
+Flash params set to 0x0220
+Compressed 421888 bytes to 272895...
+Wrote 421888 bytes (272895 compressed) at 0x00000000 in 31.2 seconds (effective 108.3 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...
+```
+
 
 ## ESPlorer
 
