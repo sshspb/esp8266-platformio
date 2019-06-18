@@ -61,6 +61,65 @@ AT+CWLIF          Check IP address of connected device
 AT+CIPSR          Get local IP address (Station mode)
 ```
 
+## esp-01 первое включение 115200 8-N-1
+```
+ ets Jan  8 2013,rst cause:2, boot mode:(3,7)
+
+load 0x40100000, len 2408, room 16 
+tail 8
+chksum 0xe5
+load 0x3ffe8000, len 776, room 0 
+tail 8
+chksum 0x84
+load 0x3ffe8310, len 632, room 0 
+tail 8
+chksum 0xd8
+csum 0xd8
+
+2nd boot version : 1.6
+  SPI Speed      : 40MHz
+  SPI Mode       : QIO
+  SPI Flash Size & Map: 8Mbit(512KB+512KB)
+jump to run user1 @ 1000
+
+ready
+-------------------------
+
+AT
+OK
+
+AT+GMR
+AT version:1.3.0.0(Jul 14 2016 18:54:01)
+SDK version:2.0.0(5a875ba)
+Farylink Technology Co., Ltd. v1.0.0.2
+May 11 2017 22:23:58
+OK
+
+AT+CWMODE=1
+OK
+
+AT+CWLAP
++CWLAP:(0,"ScrewYou!",-85,"74:da:da:08:ab:f9",1,132,0)
++CWLAP:(2,"interzet14",-81,"90:f6:52:c8:d2:72",2,107,0)
++CWLAP:(3,"nastya88",-80,"50:ff:20:1a:58:a0",3,118,0)
++CWLAP:(3,"NorthSide",-78,"64:66:b3:54:09:fa",4,122,0)
++CWLAP:(4,"DomRu13-4-15",-77,"f8:f0:82:36:43:e8",5,32767,0)
++CWLAP:(4,"izet 4",-88,"f8:f0:82:d2:c2:08",5,115,0)
++CWLAP:(3,"SkyNet20",-44,"54:04:a6:8d:18:a0",6,78,0)
++CWLAP:(2,"SkyNET",-91,"20:cf:30:88:7d:b0",6,120,0)
++CWLAP:(3,"Avrora",-88,"c8:be:19:8d:17:80",7,120,0)
++CWLAP:(3,"Boom_boom",-88,"ec:08:6b:e1:d1:40",8,108,0)
++CWLAP:(3,"RT-WiFi_3BDC",-85,"70:2e:22:62:3b:dc",8,122,0)
++CWLAP:(3,"ROSTELECOM_9641",-86,"c8:91:f9:c9:96:42",1,122,0)
++CWLAP:(4,"TP-LINK_CA2AE2",-92,"c0:4a:00:ca:2a:e2",1,122,0)
++CWLAP:(1,"besarab",-56,"00:16:cb:05:80:7c",11,117,0)
++CWLAP:(4,"Xiaomi_AA6B",-79,"34:ce:00:4a:aa:6c",11,137,0)
++CWLAP:(3,"ASUS300",-91,"10:c3:7b:cc:f4:44",11,122,0)
++CWLAP:(3,"LENOVO-PC 6806",-81,"2a:ee:65:5e:78:f3",11,32767,0)
+
+OK
+```
+
 ## Схема программирования
 
 ![ESP-01 Flashing Circuit Schematic](images/ESP-01_Flashing_Circuit_Schematic.webp)

@@ -52,9 +52,18 @@ Less than 200 uA ток потребления в режиме ожидания 
 
 Прошивку NodeMCU можно осуществить с помощью [esptool](https://github.com/espressif/esptool) — а Python-based, open source, platform independent, utility to communicate with the ROM bootloader in Espressif ESP8266 & ESP32 chips.
 ```
+esptool.py --port COM4 write_flash 0x00000 The_NodeMCU_Firmware.bin
 esptool.py --port /dev/ttyUSB0 write_flash 0x00000 The_NodeMCU_Firmware.bin
-
 ```
+To erase the entire flash chip (all data replaced with 0xFF bytes):
+```
+esptool.py erase_flash
+```
+Read SPI flash id
+```
+esptool.py flash_id
+```
+
 Welcome to the [esptool wiki](https://github.com/espressif/esptool/wiki) !
 
 ## ESPlorer
