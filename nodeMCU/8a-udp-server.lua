@@ -32,8 +32,8 @@ server.send(message, 0, message.length, PORT, HOST, function(err, bytes) {
   console.log('UDP message sent to ' + HOST +':'+ PORT);
 });
 ]]
-local grComrade = {"+79219258698", "+79213303129", "+79214201935"}
-local grRouter = {ssid = "NorthSide", pwd = "fxbdytfxbdyt1"}
+local grComrade = {"+7XXXXXXXXX", "+7XXXXXXXXX", "+7XXXXXXXXX"}
+local grRouter = {ssid = "ssid", pwd = "password"}
 local cfgsta = {ip = "192.168.0.141", netmask = "255.255.255.0", gateway = "192.168.0.1"}
 local grAccessPoint = {ssid = "grusesp01", pwd = "grusesp01"}
 local cfgap = {ip="192.168.4.1", netmask="255.255.255.0", gateway="192.168.4.1"}
