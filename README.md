@@ -30,7 +30,9 @@ Pins functions:
 - красный - указывает на наличие питания
 - синий - указывает на наличие потока данных и может также управляться программно пользователем (pin GPIO1 (TX))
 
-![ESP-01 pinout](images/ESP-01_pinout.webp)
+![ESP-01 pinout facade](images/ESP-01_pinout.webp)
+
+![ESP-01 pinout schematic](images/ESP8266-01-pins.jpg)
 
 Напряжение питания модуля 3,3 вольта (предельные значения 2,5 - 3,6 вольт).
 Прежде чем подключать модуль к компьютеру через USB-TTL конвертер необходимо установить перемычку на плате конвертера в положение 3,3В. 
@@ -126,9 +128,15 @@ OK
 
 Собираем схему программирования ESP-01, ещё раз проверяем всё ли верно, подаём питание и подключаем через USB-TTL конвертер к компьютеру. 
 
-Кнопка `Reset` служит для перезапуска программы модуля. Для перезапуска необходимо нажать и отпустить кнопку `Reset`, при этом контакт `RST` кратковременно замыкается на `GND`. По действию это эквивалентно отключению/подключению питания модуля.
+Кнопка `Reset` служит для перезапуска программы модуля. Для перезапуска необходимо нажать и отпустить кнопку `Reset`, при этом контакт `RST` кратковременно замыкается на `GND`.
 
 Если в момент кратковременного нажатия на кнопку `Reset`, а точнее, в момент отпускания кнопки `Reset`, или во время подачи питания на модуль, кнопка `Flash` нажата, то есть контакт `GPIO0` заземлён на `GND`, модуль входит в режим прошивки (программирования).
+
+![ESP8266 Boot Options](images/ESP8266-01-BootOptions.jpg)
+
+For normal program execution GPIO0 and GPIO2 need to be pulled up to Vcc (3.3V), each with a resistor in the range 2K to 10K resistor. A 2K resistor gives better noise immunity. OLIMEX uses 2K resistors SparkFun uses 10K resistors.
+
+The settings of these inputs is only checked during the power up (or reset) of the chip. After that the pins are available for general use, but their use is restricted by these external pull up/down resistors.
 
 ## Шина I2C
 
