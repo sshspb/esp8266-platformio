@@ -53,14 +53,21 @@ void user_init(void)
   printf("SDK version:%s\n", system_get_sdk_version());
 
   wifi_set_opmode(STATION_MODE);
-
+/*
   struct station_config * config = (struct station_config *)zalloc(sizeof(struct station_config));
   sprintf(config->ssid,"ssid");
   sprintf(config->password, "password");
   wifi_station_set_config(config);
   free(config);
-  wifi_station_connect();
+*/
+  struct station_config config;
+  memset(&config, 0, sizeof(struct station_config));
+  strcpy(config.ssid, ssid);
+  strcpy(config.password, pass);
+  wifi_station_set_config(config);
 
+  // wifi_station_connect(); // in user_init there is no need to call
+  
   xTaskCreate(task2, "tsk2", 256, NULL, 2, NULL);
   xTaskCreate(task3, "tsk3", 256, NULL, 2, NULL);
 }

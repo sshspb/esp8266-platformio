@@ -281,6 +281,10 @@ esptool.py --port COM4 write_flash 0x1000 my_app-0x01000.bin
 ```
 Welcome to the [esptool wiki](https://github.com/espressif/esptool/wiki) !
 
+Перед каждым вводом команды esptool нужно переводить модуль ESP8266 в режим прошивки, нажимая на кнопку Reset при нажатой кнопке Flash, которая замыкает вывод GPIO0 на GND.
+
+Если у вас плата NodeMCU или любая другая плата с возможностью автоматической прошивки, то ничего этого делать не надо, там всё делается автоматически.
+
 # dweet.io 
 Пригодится, для отладки, [dweet.io](http://dweet.io/) - сервис хранения показаний (dweets) датчиков, без оплаты до 5 dweets хранятся 24 часа.
 ### write dweet
